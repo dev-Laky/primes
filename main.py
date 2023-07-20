@@ -1,4 +1,14 @@
 from math import sqrt
+import time
+
+def timeit(func):
+    def timeit_wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+        result = func(*args, **kwargs)
+        end_time = time.perf_counter()
+        total_time = (end_time - start_time)*10**3
+        return result, f"{total_time} ms"
+    return timeit_wrapper
 
 class Primes:
     def __init__(self, r: int):
@@ -50,5 +60,13 @@ class Primes:
         
 
 if __name__ == "__main__":
-    p = print(Primes(100).get_primes())
+    @timeit
+    def run():
+        return Primes(1000).get_primes()
+    print(run())
+
+
+# def timeit():
+#     def wrapperFunction():
+        
     
